@@ -1,12 +1,8 @@
 import { Component } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from "@angular/forms";
+import {FormBuilder,FormGroup,ReactiveFormsModule,Validators} from "@angular/forms";
 import { JsonPipe } from "@angular/common";
-
+import {HttpClient} from "@angular/common/http";
+import { OnInit } from '@angular/core';
 @Component({
   selector: "app-login",
   standalone: true,
@@ -14,11 +10,11 @@ import { JsonPipe } from "@angular/common";
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css"
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  
+  constructor(private fb: FormBuilder, private http: HttpClient) {
 
     this.loginForm = this.fb.group({
 
@@ -42,6 +38,36 @@ export class LoginComponent {
 
   }
 
+loadPosts() {
+
+    this.http.get(
+        `https://jsonplaceholder.typicode.com/posts/abcd`
+    ).subscribe({
+
+next:(response)=>{
+
+console.log("Success");
+console.log(response);
+
+},
+
+error:(err)=>{
+
+console.log("Error");
+console.log(err);
+
+},
+
+complete:()=>{
+
+console.log("Request Finished");
+
+}
+
+});
+
+}
+
   onSubmit() {
     if (this.loginForm.invalid) {
         this.loginForm.markAllAsTouched();
@@ -49,7 +75,12 @@ export class LoginComponent {
     }
     console.log(this.loginForm.value);
 
+    
   }
+
+  ngOnInit() {
+        this.loadPosts();
+    }
 
   hasError(controlName: string): boolean {
 
