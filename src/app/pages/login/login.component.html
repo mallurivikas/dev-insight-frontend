@@ -1,15 +1,127 @@
-<H1>Login</H1>
+<h1>Login</h1>
 
-<form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" formControlName="email" required>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <br><br>
+  <label>Email</label>
+  <br>
 
-     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" formControlName="password" required>
+  <input
+    type="email"
+    formControlName="email">
+        @if(hasError('email')){
+            <p style="color:red;">{{getErrorMessage('email')}}</p>
+        }
 
-   <br><br>
+  <br><br>
 
-    <button type="submit" [disabled]="!LoginForm.valid">Login</button>
+  <label>Password</label>
+  <br>
+
+  <input
+    type="password"
+    formControlName="password">
+        @if(hasError('password')){
+            <p style="color:red;">{{getErrorMessage('password')}}</p>
+        }
+
+  <br><br>
+
+  <button type="submit">
+    Login
+  </button>
+
 </form>
+
+<hr>
+
+<h2>Reactive Form Debug Panel</h2>
+
+<p>
+  <strong>Form Value:</strong>
+</p>
+
+<pre>{{ loginForm.value | json }}</pre>
+
+<p>
+  <strong>Form Valid:</strong>
+  {{ loginForm.valid }}
+</p>
+
+<p>
+  <strong>Form Invalid:</strong>
+  {{ loginForm.invalid }}
+</p>
+
+<p>
+  <strong>Email Value:</strong>
+  {{ loginForm.get('email')?.value }}
+</p>
+
+<p>
+  <strong>Email Valid:</strong>
+  {{ loginForm.get('email')?.valid }}
+</p>
+
+<p>
+  <strong>Email Invalid:</strong>
+  {{ loginForm.get('email')?.invalid }}
+</p>
+
+<p>
+  <strong>Email Touched:</strong>
+  {{ loginForm.get('email')?.touched }}
+</p>
+
+<p>
+  <strong>Email Dirty:</strong>
+  {{ loginForm.get('email')?.dirty }}
+</p>
+
+<p>
+  <strong>Email Pristine:</strong>
+  {{ loginForm.get('email')?.pristine }}
+</p>
+
+<p>
+  <strong>Email Errors:</strong>
+</p>
+
+<pre>{{ loginForm.get('email')?.errors | json }}</pre>
+
+<hr>
+
+<p>
+  <strong>Password Value:</strong>
+  {{ loginForm.get('password')?.value }}
+</p>
+
+<p>
+  <strong>Password Valid:</strong>
+  {{ loginForm.get('password')?.valid }}
+</p>
+
+<p>
+  <strong>Password Invalid:</strong>
+  {{ loginForm.get('password')?.invalid }}
+</p>
+
+<p>
+  <strong>Password Touched:</strong>
+  {{ loginForm.get('password')?.touched }}
+</p>
+
+<p>
+  <strong>Password Dirty:</strong>
+  {{ loginForm.get('password')?.dirty }}
+</p>
+
+<p>
+  <strong>Password Pristine:</strong>
+  {{ loginForm.get('password')?.pristine }}
+</p>
+
+<p>
+  <strong>Password Errors:</strong>
+</p>
+
+<pre>{{ loginForm.get('password')?.errors | json }}</pre>
