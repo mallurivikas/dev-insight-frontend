@@ -3,6 +3,9 @@ import {FormBuilder,FormGroup,ReactiveFormsModule,Validators} from "@angular/for
 import { JsonPipe } from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import { OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { LoginRequest } from '../../models/auth.models';
+
 @Component({
   selector: "app-login",
   standalone: true,
@@ -14,15 +17,15 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private authService: AuthService) {
 
     this.loginForm = this.fb.group({
 
-      email: [
+      username: [
         "",
         [
           Validators.required,
-          Validators.email
+          Validators.minLength(3)
         ]
       ],
 
@@ -41,7 +44,7 @@ export class LoginComponent implements OnInit {
 loadPosts() {
 
     this.http.get(
-        `https://jsonplaceholder.typicode.com/posts/abcd`
+        `https://jsonplaceholder.typicode.com/posts/`
     ).subscribe({
 
 next:(response)=>{
@@ -68,15 +71,35 @@ console.log("Request Finished");
 
 }
 
-  onSubmit() {
-    if (this.loginForm.invalid) {
-        this.loginForm.markAllAsTouched();
-        return;
-    }
-    console.log(this.loginForm.value);
+onSubmit() {
 
-    
+  if(this.loginForm.invalid){
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  this.authService.login(this.loginForm.value as LoginRequest)
+    .subscribe({
+
+      next:(response)=>{
+
+        console.log("SUCCESS");
+
+        console.log(response);
+
+      },
+
+      error:(error)=>{
+
+        console.log("ERROR");
+
+        console.log(error);
+
+      }
+
+    });
+
+}
 
   ngOnInit() {
         this.loadPosts();

@@ -2,14 +2,14 @@
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-  <label>Email</label>
+  <label>Username</label>
   <br>
 
   <input
-    type="email"
-    formControlName="email">
-        @if(hasError('email')){
-            <p style="color:red;">{{getErrorMessage('email')}}</p>
+    type="text"
+    formControlName="username">
+        @if(hasError('username')){
+            <p style="color:red;">{{getErrorMessage('username')}}</p>
         }
 
   <br><br>
@@ -53,40 +53,40 @@
 </p>
 
 <p>
-  <strong>Email Value:</strong>
-  {{ loginForm.get('email')?.value }}
+  <strong>Username Value:</strong>
+  {{ loginForm.get('username')?.value }}
 </p>
 
 <p>
-  <strong>Email Valid:</strong>
-  {{ loginForm.get('email')?.valid }}
+  <strong>Username Valid:</strong>
+  {{ loginForm.get('username')?.valid }}
 </p>
 
 <p>
-  <strong>Email Invalid:</strong>
-  {{ loginForm.get('email')?.invalid }}
+  <strong>Username Invalid:</strong>
+  {{ loginForm.get('username')?.invalid }}
 </p>
 
 <p>
-  <strong>Email Touched:</strong>
-  {{ loginForm.get('email')?.touched }}
+  <strong>Username Touched:</strong>
+  {{ loginForm.get('username')?.touched }}
 </p>
 
 <p>
-  <strong>Email Dirty:</strong>
-  {{ loginForm.get('email')?.dirty }}
+  <strong>Username Dirty:</strong>
+  {{ loginForm.get('username')?.dirty }}
 </p>
 
 <p>
-  <strong>Email Pristine:</strong>
-  {{ loginForm.get('email')?.pristine }}
+  <strong>Username Pristine:</strong>
+  {{ loginForm.get('username')?.pristine }}
 </p>
 
 <p>
-  <strong>Email Errors:</strong>
+  <strong>Username Errors:</strong>
 </p>
 
-<pre>{{ loginForm.get('email')?.errors | json }}</pre>
+<pre>{{ loginForm.get('username')?.errors | json }}</pre>
 
 <hr>
 
